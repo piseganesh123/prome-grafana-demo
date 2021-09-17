@@ -11,7 +11,7 @@ resource "random_id" "instance_id" {
  byte_length = 8
 }
 
-resource "google_compute_firewall" "default" {
+/*resource "google_compute_firewall" "default" {
   name    = "allow-grafana-on-3000"
   network = google_compute_network.default.name
 
@@ -22,12 +22,39 @@ resource "google_compute_firewall" "default" {
   allow {
     protocol = "tcp"
     ports    = ["80", "443"]
+    ranges      = ["0.0.0.0/0"]
   }
 
   target_tags = ["allow-grafana-on-3000"]
-  ranges      = ["0.0.0.0/0"]
+  
 }
+*/
 
+module "firewall_rules" {
+  source       = "terraform-google-modules/network/google//modules/firewall-rules"
+//  project_id   = var.project_id
+  network_name = google_compute_network.default.name
+
+  rules = [{
+    name                    = "allow-grafana-ingress-3000"
+    description             = "accepts grafana traffic"
+    direction               = "INGRESS"
+    priority                = null
+    ranges                  = ["0.0.0.0/0"]
+    source_tags             = null
+    source_service_accounts = null
+    target_tags             = null
+    target_service_accounts = null
+    allow = [{
+      protocol = "tcp"
+      ports    = ["3000"]
+    }]
+    deny = []
+/*    log_config = {
+      metadata = "INCLUDE_ALL_METADATA"
+    } */
+  }]
+}
 
 resource "google_compute_network" "default" {
   name = "demo-network"
