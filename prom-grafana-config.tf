@@ -50,9 +50,9 @@ module "firewall_rules" {
       ports    = ["3000"]
     }]
     deny = []
-/*    log_config = {
+    log_config = {
       metadata = "INCLUDE_ALL_METADATA"
-    } */
+    }
   }]
 }
 
