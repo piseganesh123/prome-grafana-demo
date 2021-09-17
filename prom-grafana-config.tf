@@ -31,7 +31,7 @@ module "firewall_rules" {
     ranges                  = ["0.0.0.0/0"]
     source_tags             = null
     source_service_accounts = null
-    target_tags             = "allow-grafana-ingress-3000"
+    target_tags             = ["allow-grafana-ingress-3000"]
     target_service_accounts = null
     allow = [{
       protocol = "tcp"
