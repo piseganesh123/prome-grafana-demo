@@ -49,14 +49,7 @@ module "firewall_rules" {
       metadata = "EXCLUDE_ALL_METADATA"
     }
   }]
-}
-
-module "firewall_rules" {
-  source       = "terraform-google-modules/network/google//modules/firewall-rules"
-  project_id   = var.project_id
-//  network_name = google_compute_network.default.name
-  network_name = "default"
-  rules = [{
+    [{
     name                    = "allow-prometheus-ingress-9090"
     description             = "accepts grafana traffic"
     direction               = "INGRESS"
