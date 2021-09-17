@@ -1,8 +1,15 @@
 // Create VM for Ansible client
 // Configure the Google Cloud provider
+
+variable "project_id" {
+  type = string
+  default = "01000000-0000-4000-8000-000030080200"
+}
+
 provider "google" {
  credentials = file("/home/piseg432/keys/gce-creator.json")
- project     = "vast-pad-319812"
+ //project     = "vast-pad-319812"
+ project     = var.project_id
  region      = "asia-south1"
 }
 
@@ -32,7 +39,7 @@ resource "random_id" "instance_id" {
 
 module "firewall_rules" {
   source       = "terraform-google-modules/network/google//modules/firewall-rules"
-  project_id   = "vast-pad-319812"
+  project_id   = var.project_id
   network_name = google_compute_network.default.name
 
   rules = [{
