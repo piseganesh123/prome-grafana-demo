@@ -12,7 +12,7 @@ resource "random_id" "instance_id" {
 }
 
 resource "google_compute_firewall" "default" {
-  name    = "fw-allow-grafana-on-3000"
+  name    = "allow-grafana-on-3000"
   network = google_compute_network.default.name
 
   allow {
@@ -24,12 +24,13 @@ resource "google_compute_firewall" "default" {
     ports    = ["80", "443"]
   }
 
-  target_tags = ["web"]
+  target_tags = ["allow-grafana-on-3000"]
+  source_ranges = "0.0.0.0/0"
 }
 
 
 resource "google_compute_network" "default" {
-  name = "test-network"
+  name = "demo-network"
 }
 // A single Compute Engine instance
 resource "google_compute_instance" "default" {
@@ -37,7 +38,7 @@ resource "google_compute_instance" "default" {
  name = "prom-grafana-demo"
  machine_type = "e2-medium"
  zone         = "asia-south1-c"
- tags = ["fw-allow-grafana-on-3000"]
+ tags = ["allow-grafana-on-3000"]
  labels = {
    "purpose" = "poc"
    "preserve" = "no"
