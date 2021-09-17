@@ -18,25 +18,6 @@ resource "random_id" "instance_id" {
  byte_length = 8
 }
 
-/*resource "google_compute_firewall" "default" {
-  name    = "allow-grafana-on-3000"
-  network = google_compute_network.default.name
-
-  allow {
-    protocol = "icmp"
-  }
-
-  allow {
-    protocol = "tcp"
-    ports    = ["80", "443"]
-    ranges      = ["0.0.0.0/0"]
-  }
-
-  target_tags = ["allow-grafana-on-3000"]
-  
-}
-*/
-
 module "firewall_rules" {
   source       = "terraform-google-modules/network/google//modules/firewall-rules"
   project_id   = var.project_id
@@ -50,7 +31,7 @@ module "firewall_rules" {
     ranges                  = ["0.0.0.0/0"]
     source_tags             = null
     source_service_accounts = null
-    target_tags             = null
+    target_tags             = "allow-grafana-ingress-3000"
     target_service_accounts = null
     allow = [{
       protocol = "tcp"
@@ -58,7 +39,7 @@ module "firewall_rules" {
     }]
     deny = []
     log_config = {
-      metadata = "INCLUDE_ALL_METADATA"
+//      metadata = "INCLUDE_ALL_METADATA"
     }
   }]
 }
@@ -72,7 +53,7 @@ resource "google_compute_instance" "default" {
  name = "prom-grafana-demo"
  machine_type = "e2-medium"
  zone         = "asia-south1-c"
- tags = ["allow-grafana-on-3000"]
+ tags = ["allow-grafana-ingress-3000"]
  labels = {
    "purpose" = "poc"
    "preserve" = "no"
