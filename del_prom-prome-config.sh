@@ -26,10 +26,16 @@ sudo cp prometheus-2.0.0.linux-amd64/promtool /usr/local/bin/
 
 sudo chown prometheus:prometheus /usr/local/bin/prometheus
 sudo chown prometheus:prometheus /usr/local/bin/promtool
+
+sudo cp -r prometheus-2.0.0.linux-amd64/consoles /etc/prometheus
+sudo cp -r prometheus-2.0.0.linux-amd64/console_libraries /etc/prometheus
+
 sudo chown -R prometheus:prometheus /etc/prometheus/consoles
 sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
 
 rm -rf prometheus-2.0.0.linux-amd64.tar.gz prometheus-2.0.0.linux-amd64
+
+sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml
 
 sudo -u prometheus /usr/local/bin/prometheus \
     --config.file /etc/prometheus/prometheus.yml \
@@ -37,9 +43,9 @@ sudo -u prometheus /usr/local/bin/prometheus \
     --web.console.templates=/etc/prometheus/consoles \
     --web.console.libraries=/etc/prometheus/console_libraries
 
-// more /etc/systemd/system/prometheus.service 
+# more /etc/systemd/system/prometheus.service 
  
-// more /etc/systemd/system/prometheus.service
+# more /etc/systemd/system/prometheus.service
 sudo systemctl daemon-reload
 sudo systemctl start prometheus
 sudo systemctl status prometheus
@@ -47,3 +53,4 @@ sudo systemctl enable prometheus
 
 #get ip
 #curl localhost:9090
+

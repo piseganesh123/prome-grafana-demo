@@ -51,6 +51,32 @@ module "firewall_rules" {
   }]
 }
 
+module "firewall_rules" {
+  source       = "terraform-google-modules/network/google//modules/firewall-rules"
+  project_id   = var.project_id
+//  network_name = google_compute_network.default.name
+  network_name = "default"
+  rules = [{
+    name                    = "allow-prometheus-ingress-9090"
+    description             = "accepts grafana traffic"
+    direction               = "INGRESS"
+    priority                = null
+    ranges                  = ["0.0.0.0/0"]
+    source_tags             = null
+    source_service_accounts = null
+    target_tags             = ["allow-prometheus-ingress-9090"]
+    target_service_accounts = null
+    allow = [{
+      protocol = "tcp"
+      ports    = ["3000"]
+    }]
+    deny = []
+    log_config = {
+      metadata = "EXCLUDE_ALL_METADATA"
+    }
+  }]
+}
+
 /*resource "google_compute_network" "default" {
   name = "demo-network"
 }*/
@@ -61,7 +87,7 @@ resource "google_compute_instance" "default" {
  name = "prom-grafana-demo"
  machine_type = "e2-medium"
  zone         = "asia-south1-c"
- tags = ["allow-grafana-ingress-3000"]
+ tags = ["allow-grafana-ingress-3000", "allow-prometheus-ingress-9090"]
  labels = {
    "purpose" = "poc"
    "preserve" = "no"
@@ -74,7 +100,7 @@ resource "google_compute_instance" "default" {
 
 // 
 // metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync"
-metadata_startup_script = file("grafana-config.sh")
+metadata_startup_script = file("prom-grafana-config.sh")
 
  network_interface {
    network = "default"
