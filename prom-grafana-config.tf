@@ -51,9 +51,10 @@ module "firewall_rules" {
   }]
 }
 
-resource "google_compute_network" "default" {
+/*resource "google_compute_network" "default" {
   name = "demo-network"
-}
+}*/
+
 // A single Compute Engine instance
 resource "google_compute_instance" "default" {
  // name         = "prografana-poc-vm-${random_id.instance_id.hex}"
@@ -75,11 +76,12 @@ resource "google_compute_instance" "default" {
 // metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync"
 metadata_startup_script = file("grafana-config.sh")
 
- network_interface {
+/* network_interface {
    network = "default"
 
    access_config {
      // Include this section to give the VM an external ip address
    }
  }
+ */
 }
