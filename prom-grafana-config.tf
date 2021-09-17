@@ -29,7 +29,7 @@ module "firewall_rules" {
   source       = "terraform-google-modules/network/google//modules/firewall-rules"
   project_id   = var.project_id
 //  network_name = google_compute_network.default.name
-
+  network_name = "default"
   rules = [{
     name                    = "allow-grafana-ingress-3000"
     description             = "accepts grafana traffic"
