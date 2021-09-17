@@ -13,6 +13,12 @@ provider "google" {
  region      = "asia-south1"
 }
 
+module "network_firewall-rules" {
+  source  = "terraform-google-modules/network/google//modules/firewall-rules"
+  version = "3.4.0"
+  # insert the 2 required variables here
+}
+
 // Terraform plugin for creating random ids
 resource "random_id" "instance_id" {
  byte_length = 8
@@ -39,7 +45,7 @@ module "firewall_rules" {
     }]
     deny = []
     log_config = {
-//      metadata = "INCLUDE_ALL_METADATA"
+      metadata = "EXCLUDE_ALL_METADATA"
     }
   }]
 }
