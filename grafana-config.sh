@@ -11,3 +11,5 @@ sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl start grafana-server
 
 curl https://ipinfo.io/ip
+
+sh ./prome-config.sh
