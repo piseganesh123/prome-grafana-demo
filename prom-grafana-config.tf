@@ -48,8 +48,8 @@ module "firewall_rules" {
     log_config = {
       metadata = "EXCLUDE_ALL_METADATA"
     }
-  }]
-    [{
+  }
+    {
     name                    = "allow-prometheus-ingress-9090"
     description             = "accepts grafana traffic"
     direction               = "INGRESS"
