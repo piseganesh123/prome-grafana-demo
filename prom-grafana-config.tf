@@ -83,5 +83,4 @@ metadata_startup_script = file("grafana-config.sh")
      // Include this section to give the VM an external ip address
    }
  }
- */
 }
