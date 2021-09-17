@@ -25,7 +25,7 @@ resource "google_compute_firewall" "default" {
   }
 
   target_tags = ["allow-grafana-on-3000"]
-  source_ranges = "0.0.0.0/0"
+  ranges      = ["0.0.0.0/0"]
 }
 
 
