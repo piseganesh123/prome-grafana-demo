@@ -12,7 +12,7 @@ sudo /bin/systemctl start grafana-server
 
 curl https://ipinfo.io/ip
 
-#===== Prometheus configuration ======
+echo "===== Prometheus configuration ======"
 
 sudo useradd --no-create-home --shell /bin/false prometheus
 sudo useradd --no-create-home --shell /bin/false node_exporter
@@ -27,6 +27,8 @@ cd ~
 curl -LO https://github.com/prometheus/prometheus/releases/download/v2.0.0/prometheus-2.0.0.linux-amd64.tar.gz
 
 tar xvf prometheus-2.0.0.linux-amd64.tar.gz
+
+cd prometheus*/ && sudo mv prometheus.yml /etc/prometheus/prometheus.yml
 
 sudo cp prometheus-2.0.0.linux-amd64/prometheus /usr/local/bin/
 sudo cp prometheus-2.0.0.linux-amd64/promtool /usr/local/bin/
