@@ -28,8 +28,6 @@ curl -LO https://github.com/prometheus/prometheus/releases/download/v2.0.0/prome
 
 tar xvf prometheus-2.0.0.linux-amd64.tar.gz
 
-cd prometheus*/ && sudo mv prometheus.yml /etc/prometheus/prometheus.yml
-
 sudo cp prometheus-2.0.0.linux-amd64/prometheus /usr/local/bin/
 sudo cp prometheus-2.0.0.linux-amd64/promtool /usr/local/bin/
 
@@ -42,8 +40,9 @@ sudo cp -r prometheus-2.0.0.linux-amd64/console_libraries /etc/prometheus
 sudo chown -R prometheus:prometheus /etc/prometheus/consoles
 sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
 
-rm -rf prometheus-2.0.0.linux-amd64.tar.gz prometheus-2.0.0.linux-amd64
+# rm -rf prometheus-2.0.0.linux-amd64.tar.gz prometheus-2.0.0.linux-amd64
 
+cd prometheus*/ && sudo mv prometheus.yml /etc/prometheus/prometheus.yml
 sudo chown prometheus:prometheus /etc/prometheus/prometheus.yml
 
 sudo -u prometheus /usr/local/bin/prometheus \
