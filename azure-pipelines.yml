@@ -28,3 +28,11 @@ steps:
     provider: 'gcp'
     command: 'apply'
     environmentServiceNameGCP: 'GCE-Creator-conn'
+- task: ManualIntervention@8
+  inputs:
+    instructions: 'Remove GCP Prom-Grafana infrastructure?'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'gcp'
+    command: 'destroy'
+    environmentServiceNameGCP: 'GCE-Creator-conn'
