@@ -19,11 +19,13 @@ steps:
     command: 'init'
     backendServiceGCP: 'GCE-Creator-conn'
     backendGCPBucketName: 'azure-tf-poc-bukcet'
+    backendGCPPrefix: 'terraform'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'gcp'
     command: 'apply'
     environmentServiceNameGCP: 'GCE-Creator-conn'
+    
 - task: TerraformTaskV2@2
   inputs:
     provider: 'gcp'
