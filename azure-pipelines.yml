@@ -17,13 +17,17 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
-
-- task: TerraformCLI@0
+- task: TerraformInstaller@0
   inputs:
+    terraformVersion: 'latest'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'gcp'
     command: 'init'
-    allowTelemetryCollection: true
-    
-- task: TerraformCLI@0
+    backendServiceGCP: 'GCE-Creator-conn'
+    backendGCPBucketName: 'azure-tf-poc-bukcet'
+- task: TerraformTaskV2@2
   inputs:
+    provider: 'gcp'
     command: 'apply'
-    allowTelemetryCollection: true
+    environmentServiceNameGCP: 'GCE-Creator-conn'
