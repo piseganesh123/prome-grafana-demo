@@ -24,9 +24,6 @@ steps:
     provider: 'gcp'
     command: 'apply'
     environmentServiceNameGCP: 'GCE-Creator-conn'
-- task: Delay@1
-  inputs:
-    delayForMinutes: '2'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'gcp'
