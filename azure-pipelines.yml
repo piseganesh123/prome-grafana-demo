@@ -25,7 +25,9 @@ steps:
     provider: 'gcp'
     command: 'apply'
     environmentServiceNameGCP: 'GCE-Creator-conn'
-    
+- task: ManualIntervention@8
+  inputs:
+    instructions: 'Destroy Infra'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'gcp'
