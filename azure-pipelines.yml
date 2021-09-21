@@ -13,18 +13,23 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'gcp'
     command: 'init'
     backendServiceGCP: 'GCE-Creator-conn'
     backendGCPBucketName: 'azure-tf-poc-bukcet'
+    backendGCPPrefix: 'terraform'
 - task: TerraformTaskV2@2
   inputs:
     provider: 'gcp'
     command: 'apply'
+    environmentServiceNameGCP: 'GCE-Creator-conn'
+- task: ManualIntervention@8
+  inputs:
+    instructions: 'Destroy Infra'
+- task: TerraformTaskV2@2
+  inputs:
+    provider: 'gcp'
+    command: 'destroy'
     environmentServiceNameGCP: 'GCE-Creator-conn'
