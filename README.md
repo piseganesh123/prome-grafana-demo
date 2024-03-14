@@ -8,4 +8,5 @@ Note: Grafana default credentails - admin / admin - Mar 2024
 For manual installation - refer commands in prom-grafana-config.sh file
 
 grafana URL - http://<ip>:3000
+
 prometheus url - http://<ip>:9090
