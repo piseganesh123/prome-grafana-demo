@@ -4,6 +4,8 @@ Pipeline can be triggerred from Azure DevOps, Infrastructure on GCP is created b
 
 For manual installation - refer commands in prom-grafana-config.sh file
 
+  sudo sh ./prom-grafana-config.sh
+
 grafana URL - http://ip:3000
 
 prometheus url - http://ip:9090
